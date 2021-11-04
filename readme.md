@@ -2,7 +2,7 @@
 
 This is a simple little script to show track info from Chillhop Music's livestreams on your Discord status. It uses the same API that [chillhop.com/live](https://chillhop.com/live) uses internally to display track information.
 
-`chillhop.py` handles the API, and `rpc.py` (as the name suggests) does all the *~cool~* rich presence things.
+`chillhop.py` handles the API, and `rpc.py` (as the name suggests) does all the *\~cool\~* rich presence things.
 
 ## Usage
 
