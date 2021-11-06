@@ -3,9 +3,6 @@ import requests
 import json
 import time
 
-class InputOutOfRange(Exception):
-    pass
-
 class live:
     def __init__(self, stream_index=0, log_bad_response=False): # default value if no index is passed
         self.streams = [{'name': 'Chillhop Radio 🐾', 'id': '5yx6BWlEVcY', 'appid': '889847839662956615'}, {'name': 'lofi hip hop radio 🐾', 'id': '7NOSDKb0HlU', 'appid': '890420933280550922'}]
@@ -14,6 +11,7 @@ class live:
 
     def parse_response(self, response): # you can easily add variables to grab from the json here
         result = []
+        
         for i in response: # iterates over a list of multiple tracks, useful for get_track_history()
             title = i["title"]    
             artists = []
@@ -27,11 +25,12 @@ class live:
             duration = i["duration"]
             img = i["img"]
             result.append({'title': title, 'artists': artists, 'track_id': track_id, 'post_id': post_id, 'spotify_url': spotify_url, 'last_play': last_play, 'duration': duration, 'img': img})
+
         return result
 
     def get_track_info(self):
         data = {'action': 'player_get_livestream_tracks', 'youtubeid': self.streams[self.stream_index]['id'], 'type': 'history', 'lastPull': (str(int(time.time()))), 'offset': '0'}
-        
+
         while True:
             response = json.loads(requests.post('https://chillhop.com/wp-admin/admin-ajax.php', data=data).content)
             try:  
@@ -47,7 +46,6 @@ class live:
         return result
 
     def get_track_history(self, offset):
-        
         # -- WIP --
         # Chillhop's API returns information on the 20 last-played tracks at a time
         # Offset 0 will actually only return the currently playing track, but get_track_info() is provided as a more convenient function for this
