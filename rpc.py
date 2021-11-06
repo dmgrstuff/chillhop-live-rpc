@@ -30,7 +30,7 @@ while True:
     time_str = str(int(time.time()))
     last_play = datetime.strptime(track['last_play'], '%Y-%m-%d %H:%M:%S').timestamp()
     duration = int(track['duration']) / 1000
-    duration_str = duration_str = time_fmt(duration)
+    duration_str = time_fmt(duration)
     next_track_time = last_play + duration # converting from ms
 
     if rpc_enabled == True:
