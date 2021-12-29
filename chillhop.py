@@ -66,7 +66,7 @@ class live:
                 time.sleep(4) # spam it until it works lol
         return result
 
-    def get_current_views(self):
+    def get_current_views(self): # BUG: this request 404s even on Chillhop's website, maybe a change in the API?
         response = requests.get(f'https://chillhop.com/fetch3/?action=get_current_views&youtube_id={self.streams[self.stream_index]["id"]}')
         result = json.loads(response.content)["viewers"]
         return result

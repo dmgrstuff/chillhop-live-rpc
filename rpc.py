@@ -34,13 +34,13 @@ while True:
     next_track_time = last_play + duration # converting from ms
 
     if rpc_enabled == True:
-        viewers = ch.get_current_views() # gets the current viewer count
+        viewers = ch.get_current_views() # BUG: see chillhop.py, line 69 - something with YT or Chillhop's API broke
         track_url = f'https://chillhop.com/?p={track["post_id"]}'
         rpc.update( 
           details=f"{track['title']} ({duration_str})",
           state=track["artists"],
           large_image="radio_1",
-          large_text=f"{viewers} viewers",
+          # large_text=f"{viewers} viewers",
           buttons=[
             {"label": "View release", "url": track_url},
             {"label": "View artist", "url": f'{track_url}&type=artists'} # well that's convenient!
