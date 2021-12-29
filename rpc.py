@@ -34,7 +34,7 @@ while True:
     next_track_time = last_play + duration # converting from ms
 
     if rpc_enabled == True:
-        viewers = ch.get_current_views() # BUG: see chillhop.py, line 69 - something with YT or Chillhop's API broke
+        # viewers = ch.get_current_views() # BUG: see chillhop.py, line 69 - something with YT or Chillhop's API broke
         track_url = f'https://chillhop.com/?p={track["post_id"]}'
         rpc.update( 
           details=f"{track['title']} ({duration_str})",
