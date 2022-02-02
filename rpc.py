@@ -1,5 +1,5 @@
 from chillhop import live
-from pypresence import Presence, InvalidPipe
+from pypresence import Presence, InvalidPipe, DiscordNotFound
 from datetime import datetime
 import time
 
@@ -9,7 +9,6 @@ index = int(input("""Which stream?
 > """))
 
 ch = live(stream_index=index-1) # since Python list indices start at 0
-rpc = Presence(ch.streams[ch.stream_index]['appid'])
 
 def time_fmt(num): # the "naive" way
     mins = int(num // 60)
@@ -18,9 +17,9 @@ def time_fmt(num): # the "naive" way
         secs = "0" + str(secs) # leading 0 (there's probably a better way)
     return f"{str(mins)}:{str(secs)}"
 
-try: rpc.connect()
-except InvalidPipe as e: # gracefully handle Discord not being open
-    print("[warning] Exception \"InvalidPipe\" raised; disabling rich presence functions. (Do you have Discord open?)")
+try: rpc = Presence(ch.streams[ch.stream_index]['appid'])
+except DiscordNotFound:
+    print("[warning] Discord not found, disabling rich presence functions.")
     rpc_enabled = False
 else: rpc_enabled = True
 
