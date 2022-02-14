@@ -1,5 +1,5 @@
 from chillhop import live
-from pypresence import Presence, InvalidPipe, DiscordNotFound
+from pypresence import Presence, DiscordNotFound
 from datetime import datetime
 import time
 
@@ -17,14 +17,15 @@ def time_fmt(num): # the "naive" way
         secs = "0" + str(secs) # leading 0 (there's probably a better way)
     return f"{str(mins)}:{str(secs)}"
 
-try: rpc = Presence(ch.streams[ch.stream_index]['appid'])
+try: 
+    rpc = Presence(ch.streams[ch.stream_index]['appid'])
+    rpc.connect()
 except DiscordNotFound:
     print("[warning] Discord not found, disabling rich presence functions.")
     rpc_enabled = False
 else: rpc_enabled = True
 
 while True:
-    # welcome to one liner hell, enjoy your stay
     track = ch.get_track_info() # fetch current track info (returns dict)
     time_str = str(int(time.time()))
     last_play = datetime.strptime(track['last_play'], '%Y-%m-%d %H:%M:%S').timestamp()
